@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 520" width="1000" height="520" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="1000" height="520" fill="#ffffff"/>
+  <text x="500" y="34" text-anchor="middle" font-size="20" font-weight="600" fill="#0f172a">BrightHome booking agent: deployment</text>
+
+  <!-- Customer -->
+  <rect x="20" y="150" width="110" height="60" rx="30" fill="#f1f5f9" stroke="#334155"/>
+  <text x="75" y="185" text-anchor="middle" font-size="15" fill="#0f172a">Customer</text>
+
+  <!-- Agentplace -->
+  <rect x="160" y="70" width="210" height="230" rx="10" fill="#eef2ff" stroke="#4f46e5" stroke-dasharray="6 4"/>
+  <text x="265" y="94" text-anchor="middle" font-size="14" font-weight="600" fill="#3730a3">Agentplace</text>
+  <rect x="175" y="110" width="180" height="90" rx="8" fill="#ffffff" stroke="#4f46e5"/>
+  <text x="265" y="138" text-anchor="middle" font-size="15" font-weight="600" fill="#0f172a">BrightHome agent</text>
+  <text x="265" y="158" text-anchor="middle" font-size="12" fill="#475569">GPT-6 Luna</text>
+  <text x="265" y="176" text-anchor="middle" font-size="12" fill="#475569">picks 1 of 5 services, collects</text>
+  <text x="265" y="191" text-anchor="middle" font-size="12" fill="#475569">contact + time, confirms</text>
+  <rect x="175" y="220" width="180" height="60" rx="8" fill="#ffffff" stroke="#4f46e5"/>
+  <text x="265" y="244" text-anchor="middle" font-size="13" fill="#0f172a">Server-side action</text>
+  <text x="265" y="262" text-anchor="middle" font-size="12" fill="#475569">secret RELAY_API_KEY</text>
+
+  <!-- Render relay -->
+  <rect x="470" y="70" width="260" height="230" rx="10" fill="#ecfdf5" stroke="#059669" stroke-dasharray="6 4"/>
+  <text x="600" y="94" text-anchor="middle" font-size="14" font-weight="600" fill="#065f46">Render (free web service)</text>
+  <rect x="485" y="110" width="230" height="110" rx="8" fill="#ffffff" stroke="#059669"/>
+  <text x="600" y="134" text-anchor="middle" font-size="15" font-weight="600" fill="#0f172a">Relay: relay.py (FastAPI)</text>
+  <text x="500" y="158" font-size="12" fill="#334155">1. validate fields → 422 per field</text>
+  <text x="500" y="177" font-size="12" fill="#334155">2. claim idempotency key first</text>
+  <text x="500" y="196" font-size="12" fill="#334155">3. forward, 3 tries with backoff</text>
+  <text x="500" y="212" font-size="11" fill="#64748b">   on failure release the claim</text>
+  <rect x="525" y="236" width="150" height="48" rx="8" fill="#ffffff" stroke="#059669"/>
+  <text x="600" y="256" text-anchor="middle" font-size="13" fill="#0f172a">SQLite</text>
+  <text x="600" y="273" text-anchor="middle" font-size="11" fill="#475569">service + email + slot</text>
+
+  <!-- External -->
+  <rect x="820" y="130" width="160" height="100" rx="10" fill="#fff7ed" stroke="#ea580c"/>
+  <text x="900" y="160" text-anchor="middle" font-size="15" font-weight="600" fill="#0f172a">External test</text>
+  <text x="900" y="180" text-anchor="middle" font-size="15" font-weight="600" fill="#0f172a">service</text>
+  <text x="900" y="204" text-anchor="middle" font-size="12" fill="#475569">Postman Echo</text>
+  <text x="900" y="220" text-anchor="middle" font-size="11" fill="#64748b">(stores nothing)</text>
+
+  <!-- arrows -->
+  <line x1="130" y1="180" x2="171" y2="162" stroke="#334155" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <text x="140" y="158" text-anchor="middle" font-size="12" fill="#334155">chat</text>
+  <line x1="265" y1="200" x2="265" y2="216" stroke="#334155" stroke-width="1.6" marker-end="url(#arrow)"/>
+
+  <line x1="355" y1="250" x2="481" y2="190" stroke="#334155" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <text x="425" y="248" text-anchor="middle" font-size="11" fill="#334155">HTTPS POST</text>
+  <text x="425" y="262" text-anchor="middle" font-size="11" fill="#334155">/requests</text>
+  <text x="425" y="276" text-anchor="middle" font-size="11" fill="#334155">+ Bearer key</text>
+  <line x1="481" y1="140" x2="359" y2="140" stroke="#334155" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <text x="420" y="118" text-anchor="middle" font-size="11" fill="#334155">status +</text>
+  <text x="420" y="132" text-anchor="middle" font-size="11" fill="#334155">reference</text>
+
+  <line x1="600" y1="220" x2="600" y2="232" stroke="#334155" stroke-width="1.6" marker-end="url(#arrow)"/>
+
+  <line x1="715" y1="180" x2="816" y2="180" stroke="#334155" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <text x="775" y="160" text-anchor="middle" font-size="11" fill="#334155">POST with</text>
+  <text x="775" y="174" text-anchor="middle" font-size="11" fill="#334155">Idempotency-Key</text>
+
+  <!-- GitHub -->
+  <rect x="470" y="360" width="260" height="80" rx="10" fill="#f8fafc" stroke="#334155"/>
+  <text x="600" y="388" text-anchor="middle" font-size="15" font-weight="600" fill="#0f172a">GitHub</text>
+  <text x="600" y="408" text-anchor="middle" font-size="12" fill="#475569">code · tests on every push</text>
+  <text x="600" y="424" text-anchor="middle" font-size="12" fill="#475569">/health ping every 10 min, 02-18 UTC</text>
+  <line x1="600" y1="356" x2="600" y2="304" stroke="#334155" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+  <text x="610" y="335" font-size="11" fill="#334155">deploys (render.yaml)</text>
+
+  <!-- legend of outcomes -->
+  <text x="20" y="480" font-size="12" fill="#334155">Relay answers: created (201) · duplicate, same reference (200) · invalid fields (422) · in progress (409) · unavailable, retry later (503) · rejected (502)</text>
+</svg>

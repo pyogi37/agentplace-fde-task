@@ -5,31 +5,12 @@ services and leaves a request with contact details and a preferred time. The age
 small relay service, which checks the fields and passes the request to an external test service exactly once.
 
 - **Agent:** {{agent link}}
-- **Relay:** {{relay url}} (health check: `/health`)
+- **Relay:** https://booking-relay.onrender.com (health check: `/health`)
 - **External test service:** [Postman Echo](https://postman-echo.com), which answers like a real API and stores nothing
 
 ## How it fits together
 
-```mermaid
-flowchart LR
-    C([Customer]) -- chat --> A
-    subgraph Agentplace
-        A[BrightHome agent<br/>GPT-6 Luna]
-        S[(Server-side secret<br/>RELAY_API_KEY)]
-    end
-    subgraph Render free web service
-        R[Relay: relay.py<br/>FastAPI]
-        D[(SQLite<br/>idempotency keys)]
-    end
-    E[External test service<br/>Postman Echo]
-    A -- "POST /requests<br/>HTTPS + Bearer key" --> R
-    S -. used by .-> A
-    R -- "1. validate fields" --> R
-    R -- "2. claim key" --> D
-    R -- "3. POST + Idempotency-Key<br/>3 tries, backoff" --> E
-    R -- "created / duplicate / invalid /<br/>unavailable / rejected" --> A
-    G[GitHub Actions] -- "tests on push;<br/>/health ping every 10 min" --> R
-```
+![Deployment diagram: customer, Agentplace agent, relay on Render, external test service](docs/deployment-diagram.svg)
 
 1. The agent collects service, name, email, optional phone, preferred time and optional notes, then confirms
    them with the customer.
