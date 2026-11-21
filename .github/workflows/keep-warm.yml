@@ -1,0 +1,11 @@
+# Render's free plan sleeps after 15 idle minutes and takes ~50 s to wake,
+# long enough for the agent's tool call to time out. A ping every 10 minutes keeps it up.
+name: keep-warm
+on:
+  schedule: [{ cron: "*/10 * * * *" }]
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - run: curl -fsS --retry 3 --max-time 90 "${{ vars.RELAY_URL }}/health"
