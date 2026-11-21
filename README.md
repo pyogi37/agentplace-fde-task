@@ -114,7 +114,8 @@ requests actually went out:
    `RELAY_API_KEY`.
 3. Copy `RELAY_API_KEY` from the service's Environment tab into the Agentplace agent's server-side secret.
 4. In the GitHub repo, set the Actions variable `RELAY_URL` to the Render URL so `keep-warm.yml` pings it
-   (Render's free plan sleeps after 15 idle minutes and takes about a minute to wake).
+   02:00-18:00 UTC (Render's free plan sleeps after 15 idle minutes and takes about a minute to wake;
+   pinging round the clock would use most of the 750 free hours a month).
 
 ## Limits I'd change for production
 
