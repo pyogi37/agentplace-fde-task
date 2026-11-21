@@ -4,7 +4,7 @@ An Agentplace agent (free GPT-6 Luna model) for a home-services company. A custo
 services and leaves a request with contact details and a preferred time. The agent hands each request to a
 small relay service, which checks the fields and passes the request to an external test service exactly once.
 
-- **Agent:** {{agent link}}
+- **Agent:** https://rmilrbpxocb3.run.agentplace.io/
 - **Relay:** https://booking-relay.onrender.com (health check: `/health`)
 - **External test service:** [Postman Echo](https://postman-echo.com), which answers like a real API and stores nothing
 
@@ -87,6 +87,17 @@ requests actually went out:
 - **Repeated submission:** the second call (name and email case retyped) returns `duplicate` with the same reference; one call out. Same with an explicit `Idempotency-Key`.
 - **Unavailable service:** a 503 and a refused connection each get three tries, then `unavailable`, and leave nothing behind; when the service is back, the same request goes through once.
 - Also: recovery on the second try, a 4xx from the service not retried, and the API key check.
+
+### Checked live through the agent (21 Nov 2026)
+
+| Case | What happened |
+|---|---|
+| Successful submission | Customer confirmed; relay answered 201 and the agent showed the reference |
+| Incomplete data | `test@example` as the email: the agent asked for a complete address before sending anything |
+| Repeated submission | Same details sent twice: 201, then 200 `duplicate` with the same reference |
+| Unavailable service | `EXTERNAL_URL` pointed at a closed port: the agent said nothing was created and to try later ([screenshot](docs/live-unavailable.png)); after restoring it, the same request went through once |
+
+The agent checks obvious gaps itself, and the relay checks again, because the relay can't trust its caller.
 
 ## Deploy (Render, free)
 
