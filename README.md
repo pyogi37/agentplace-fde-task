@@ -99,6 +99,10 @@ requests actually went out:
 
 The agent checks obvious gaps itself, and the relay checks again, because the relay can't trust its caller.
 
+Fixed after a usability test: the review card now has **Submit request** and **Change details** buttons (typing
+"please submit" still works), a "Sending your request, this can take up to a minute" state covers the relay
+waking from sleep, and the welcome screen is static so the chat box is ready the moment the page loads.
+
 ## Deploy (Render, free)
 
 1. Fork or push this repo to GitHub.
