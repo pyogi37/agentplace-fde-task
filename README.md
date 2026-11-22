@@ -111,7 +111,9 @@ waking from sleep, and the welcome screen is static so the chat box is ready the
 3. Copy `RELAY_API_KEY` from the service's Environment tab into the Agentplace agent's server-side secret.
 4. In the GitHub repo, set the Actions variable `RELAY_URL` to the Render URL so `keep-warm.yml` pings it
    02:00-18:00 UTC (Render's free plan sleeps after 15 idle minutes and takes about a minute to wake;
-   pinging round the clock would use most of the 750 free hours a month).
+   pinging round the clock would use most of the 750 free hours a month). GitHub runs scheduled workflows
+   only now and then, so the real keep-warm is a free cron-job.org job hitting `/health` on the same
+   schedule (`*/10 2-17 * * *`, UTC); the workflow stays as a backup.
 
 ## Limits I'd change for production
 
