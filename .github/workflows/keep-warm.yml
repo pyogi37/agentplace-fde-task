@@ -1,9 +1,10 @@
 # Render's free plan sleeps after 15 idle minutes and takes ~50 s to wake, long enough for the
-# agent's call to time out. Pinging 02:00-18:00 UTC keeps it awake for most working hours while
-# staying well inside the 750 free instance-hours a month shared by the workspace.
+# agent's call to time out. Backup for the cron-job.org ping (README, Deploy step 4): that one keeps
+# the relay awake but can't wake it, while a request from here can. GitHub runs schedules late or not
+# at all, so this only helps now and then.
 name: keep-warm
 on:
-  schedule: [{ cron: "*/10 2-17 * * *" }]
+  schedule: [{ cron: "*/10 * * * *" }]
   workflow_dispatch:
 jobs:
   ping:

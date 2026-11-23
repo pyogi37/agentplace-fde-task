@@ -109,11 +109,13 @@ waking from sleep, and the welcome screen is static so the chat box is ready the
 2. In Render: **New > Blueprint**, pick the repo. `render.yaml` creates the web service and generates
    `RELAY_API_KEY`.
 3. Copy `RELAY_API_KEY` from the service's Environment tab into the Agentplace agent's server-side secret.
-4. In the GitHub repo, set the Actions variable `RELAY_URL` to the Render URL so `keep-warm.yml` pings it
-   02:00-18:00 UTC (Render's free plan sleeps after 15 idle minutes and takes about a minute to wake;
-   pinging round the clock would use most of the 750 free hours a month). GitHub runs scheduled workflows
-   only now and then, so the real keep-warm is a free cron-job.org job hitting `/health` on the same
-   schedule (`*/10 2-17 * * *`, UTC); the workflow stays as a backup.
+4. Keep it awake. Render's free plan sleeps after 15 idle minutes and takes about a minute to wake. A free
+   cron-job.org job hits `/health` every 10 minutes, round the clock, which uses about 744 of the 750
+   free hours in a month. Requests from cron-job.org keep a running service awake but don't wake a sleeping
+   one: Render answers them with an instant 503. So if the relay ever does fall asleep, something else has
+   to wake it. `keep-warm.yml` sends the same ping from GitHub Actions (set the Actions variable
+   `RELAY_URL` to the Render URL), but GitHub runs scheduled workflows late or not at all, so treat it as a
+   backup.
 
 ## Limits I'd change for production
 
